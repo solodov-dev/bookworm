@@ -34,9 +34,7 @@ export default {
 <style scoped>
 .home {
   margin-top: 80px;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
+  width: 100%;
 }
 
 .empty-element {
