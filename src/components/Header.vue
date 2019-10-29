@@ -32,9 +32,7 @@ export default {
       this.showSearch = false;
       axios.get(`http://openlibrary.org/search.json?q=${this.searchTerm.replace(' ', '+').toLowerCase()}`)
         .then((res) => {
-          res.data.docs.forEach((value) => {
-            console.log(`Key: ${value.key} Title: ${value.title}, Author name: ${value.author_name}`);
-          });
+          this.$store.dispatch('commitBookSearch', res.data.docs);
         }).catch(error => console.log(error));
     },
   },
