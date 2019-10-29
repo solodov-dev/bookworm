@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -28,7 +30,12 @@ export default {
   methods: {
     searchBooks() {
       this.showSearch = false;
-      console.log(this.searchTerm);
+      axios.get(`http://openlibrary.org/search.json?q=${this.searchTerm.replace(' ', '+').toLowerCase()}`)
+        .then((res) => {
+          res.data.docs.forEach((value) => {
+            console.log(`Key: ${value.key} Title: ${value.title}, Author name: ${value.author_name}`);
+          });
+        }).catch(error => console.log(error));
     },
   },
 };
