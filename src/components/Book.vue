@@ -1,7 +1,9 @@
 <template>
-    <div class="book" :style="randomColor">
-      <h1 class="book-title">{{ bookTitle }}</h1>
-      <h2 class="book-author">{{ bookAuthor }}</h2>
+    <div class="book-container" :style="randomMargin">
+      <div class="book" :style="[randomColor, randomWidth]">
+        <h1 class="book-title">{{ bookTitle }}</h1>
+        <h2 class="book-author">{{ bookAuthor }}</h2>
+      </div>
     </div>
 </template>
 <script>
@@ -18,7 +20,13 @@ export default {
       };
     },
     randomWidth() {
-      return { width: Math.floor(Math.random() * (100 - 40 + 1) + 40) };
+      const width = `${Math.floor(Math.random() * (80 - 50 + 1) + 40).toString()}%`;
+      return { 'max-width': width };
+    },
+    randomMargin() {
+      const marginLeft = `${Math.floor(Math.random() * (40 - 10 + 1) + 10).toString()}px`;
+      const marginRight = `${Math.floor(Math.random() * (40 - 10 + 1) + 10).toString()}px`;
+      return { 'margin-left': marginLeft, 'margin-right': marginRight };
     },
   },
 };
@@ -26,6 +34,7 @@ export default {
 <style scoped>
   .book {
     padding: .6em;
+    margin: 0 auto;
   }
 
   .book-title {
