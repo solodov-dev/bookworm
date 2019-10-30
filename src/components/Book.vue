@@ -15,7 +15,6 @@ export default {
       { 'font-family': "'Jomolhari', serif" },
       { 'font-family': "'Big Shoulders Text', cursive" },
       { 'font-family': "'Merriweather', serif" },
-      { 'font-family': "'Roboto Mono', monospace" },
       { 'font-family': "'Indie Flower', cursive" },
       { 'font-family': "'Lobster', cursive" },
       { 'font-family': "'Pacifico', cursive" },
@@ -59,10 +58,10 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Amatic+SC|Big+Shoulders+Text|Dancing+Script|Indie+Flower|Jomolhari|Just+Another+Hand|Lobster|Merriweather|Pacifico|Roboto+Mono&display=swap');
 .book {
   position: relative;
-  padding: 0.6em;
+  padding: 0.7em;
   margin: 0 auto;
-  box-shadow: 0 20px 12px rgba(6, 0, 59, 0.404) inset,
-    0 -20px 12px rgba(6, 0, 59, 0.404) inset;
+  box-shadow: 0 15px 8px rgba(6, 0, 59, 0.404) inset,
+    0 -15px 8px rgba(6, 0, 59, 0.404) inset;
   border-top: 1px solid rgba(0, 0, 0, 0.644);
   border-bottom: 1px solid rgba(0, 0, 0, 0.664);
 }
