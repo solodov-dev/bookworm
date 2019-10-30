@@ -6,19 +6,33 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    booksSearchList: [],
+    booksList: [],
+    database: [],
+    loading: false,
   },
   getters: {
-    booksSearchList(state) {
-      return state.booksSearchList;
+    booksList(state) {
+      return state.booksList;
+    },
+    loading(state) {
+      return state.loading;
     },
   },
   mutations: {
-    clearSearchList(state) {
-      state.booksSearchList = [];
+    clearList(state) {
+      state.booksList = [];
     },
-    pushSearchList(state, book) {
-      state.booksSearchList.push(book);
+    pushList(state, book) {
+      state.booksList.push(book);
+    },
+    pushDatabase(state, book) {
+      state.database.push(book);
+    },
+    setList(state, filter) {
+      state.booksList = state.database.filter(el => el.status === filter);
+    },
+    toggleLoading(state) {
+      state.loading = !state.loading;
     },
   },
   actions: {
@@ -37,15 +51,19 @@ export default new Vuex.Store({
         && t.author_name.toLowerCase().replace(' ', '') === el.author_name.toLowerCase().replace(' ', ''),
       ) === index);
       // Commit books to the list
-      commit('clearSearchList');
       booksFiltered.forEach((book) => {
-        commit('pushSearchList', {
+        commit('pushList', {
           title: book.title,
           author: book.author_name,
           key: book.key,
         });
       });
     },
+    setList({ commit, state }, filter) {
+      if (state.database) {
+        commit('clearList');
+        commit('setList', filter);
+      }
+    },
   },
-  modules: {},
 });

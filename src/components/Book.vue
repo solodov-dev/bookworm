@@ -80,6 +80,10 @@ export default {
   z-index: 1;
 }
 
+.book:hover > .book-label{
+  background-color: rgba(176, 252, 0, 0.322);
+}
+
 .book-title {
   font-size: 40px;
   color: #291101;

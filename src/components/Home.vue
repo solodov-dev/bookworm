@@ -1,13 +1,19 @@
 <template>
   <div class="home">
     <img
-      v-if="!booksSearchList"
-      class="empty-element"
+      v-if="booksList.length <= 0"
+      class="loader"
       alt="A worm eating books"
       src="@/assets/books.svg"
     />
+    <v-progress-circular
+      v-if="loading"
+      class="loader"
+      indeterminate
+      color="primary"
+    ></v-progress-circular>
     <app-book
-      v-for="book in booksSearchList"
+      v-for="book in booksList"
       :key="book.key"
       :book-title="book.title"
       :book-author="book.author"
@@ -21,8 +27,11 @@ import Book from './Book.vue';
 export default {
   name: 'home',
   computed: {
-    booksSearchList() {
-      return this.$store.getters.booksSearchList;
+    booksList() {
+      return this.$store.getters.booksList;
+    },
+    loading() {
+      return this.$store.getters.loading;
     },
   },
   components: {
@@ -37,10 +46,12 @@ export default {
   width: 100%;
 }
 
-.empty-element {
-  display: block;
-  width: 100px;
-  height: 100px;
-  margin: 250px auto;
+.loader {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  top: 50%;
 }
 </style>

@@ -29,10 +29,13 @@ export default {
   },
   methods: {
     searchBooks() {
+      this.$store.commit('toggleLoading');
       this.showSearch = false;
+      this.$store.commit('clearList');
       axios.get(`http://openlibrary.org/search.json?q=${this.searchTerm.replace(' ', '+').toLowerCase()}`)
         .then((res) => {
           this.$store.dispatch('commitBookSearch', res.data.docs);
+          this.$store.commit('toggleLoading');
         }).catch(error => console.log(error));
     },
   },
