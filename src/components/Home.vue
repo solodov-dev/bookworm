@@ -78,17 +78,18 @@ export default {
       this.selectedBook = book;
     },
     processBook(status) {
-      // To add the book
+      // To add the book or to move it to another shelf
+      // FIXME If status !== 'delete'. 'Search' instead of 'delete' for display purposes
       if (status !== 'search') {
-        this.$store.commit({
-          type: 'pushDatabase',
+        this.$store.dispatch({
+          type: 'moveBook',
           book: this.selectedBook,
           status,
         });
       // To delete the book
       } else {
         this.$store.commit('deleteFromDatabase', this.selectedBook);
-      } // TODO to move a book to another shelf
+      }
       this.$store.commit('saveDatabase');
     },
   },

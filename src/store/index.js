@@ -55,9 +55,10 @@ export default new Vuex.Store({
       state.database[payload.status].push(payload.book);
     },
     deleteFromDatabase(state, book) {
-      state.database[state.currentList].splice(
-        state.database[state.currentList].findIndex(e => e.key === book.key), 1,
-      );
+      const index = state.database[state.currentList].findIndex(e => e.key === book.key);
+      if (index !== -1) {
+        state.database[state.currentList].splice(index, 1);
+      }
     },
     toggleLoading(state) {
       state.loading = !state.loading;
@@ -94,6 +95,12 @@ export default new Vuex.Store({
       if (state.database[listName].length > 0) {
         commit('setList', listName);
       }
+    },
+    moveBook({ commit, state }, payload) {
+      if (state.currentList !== 'search') {
+        commit('deleteFromDatabase', payload.book);
+      }
+      commit('pushDatabase', { status: payload.status, book: payload.book });
     },
   },
 });
