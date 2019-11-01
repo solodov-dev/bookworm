@@ -34,6 +34,7 @@ export default {
       this.$store.commit('toggleLoading');
       this.showSearch = false;
       this.$store.commit('clearList');
+      this.$store.commit('currentList', 'searching');
       axios.get(`http://openlibrary.org/search.json?q=${this.searchTerm.replace(' ', '+').toLowerCase()}`)
         .then((res) => {
           this.$store.dispatch('commitBookSearch', res.data.docs);

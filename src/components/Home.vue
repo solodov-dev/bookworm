@@ -29,9 +29,9 @@
         <v-list-item
           v-for="(item, index) in menuItems"
           :key="index"
-          @click="processBook(item)"
+          @click="processBook(item.value)"
         >
-          <v-list-item-title>{{ item }}</v-list-item-title>
+          <v-list-item-title>{{ item.text }}</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -46,7 +46,6 @@ export default {
   data() {
     return {
       showMenu: false,
-      menuItems: ['Read', 'Reading', 'To Read'],
       x: 0,
       y: 0,
       selectedBook: {},
@@ -59,9 +58,15 @@ export default {
     loading() {
       return this.$store.getters.loading;
     },
-  },
-  components: {
-    appBook: Book,
+    menuItems() {
+      const menu = [
+        { text: 'Read', value: 'read' },
+        { text: 'Reading', value: 'reading' },
+        { text: 'To Read', value: 'toRead' },
+        { text: 'Delete', value: 'search' },
+      ];
+      return menu.filter(e => e.value !== this.$store.getters.currentList);
+    },
   },
   methods: {
     toggleMenu(e, book) {
@@ -74,9 +79,13 @@ export default {
       this.$store.commit({
         type: 'pushDatabase',
         book: this.selectedBook,
-        status: status.toLowerCase(),
+        status,
       });
+      this.$store.commit('saveDatabase');
     },
+  },
+  components: {
+    appBook: Book,
   },
 };
 </script>

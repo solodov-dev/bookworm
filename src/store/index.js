@@ -12,6 +12,7 @@ export default new Vuex.Store({
       reading: [],
       toRead: [],
     },
+    currentList: 'read',
     loading: false,
   },
   getters: {
@@ -21,19 +22,37 @@ export default new Vuex.Store({
     loading(state) {
       return state.loading;
     },
+    currentList(state) {
+      return state.currentList;
+    },
   },
   mutations: {
+    setCurrentList(state, current) {
+      state.currentList = current;
+    },
     clearList(state) {
       state.booksList = [];
     },
     pushList(state, book) {
       state.booksList.push(book);
     },
-    pushDatabase(state, payload) {
-      state.database[payload.status].push(payload.book);
-    },
     setList(state, filter) {
       state.booksList = state.database[filter];
+    },
+    loadDatabase(state) {
+      if (localStorage.getItem('database')) {
+        try {
+          state.database = JSON.parse(localStorage.getItem('database'));
+        } catch (e) {
+          localStorage.removeItem('database');
+        }
+      }
+    },
+    saveDatabase(state) {
+      localStorage.setItem('database', JSON.stringify(state.database));
+    },
+    pushDatabase(state, payload) {
+      state.database[payload.status].push(payload.book);
     },
     toggleLoading(state) {
       state.loading = !state.loading;
@@ -65,6 +84,7 @@ export default new Vuex.Store({
     },
     setList({ commit, state }, filter) {
       commit('clearList');
+      commit('setCurrentList', filter);
       if (state.database[filter].length > 0) {
         commit('setList', filter);
       }

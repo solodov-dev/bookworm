@@ -18,5 +18,13 @@ export default {
     appHome: Home,
     appMenu: Menu,
   },
+  mounted() {
+    if (localStorage.getItem('database')) {
+      this.$store.commit('loadDatabase');
+      this.$store.dispatch('setList', 'read');
+    } else {
+      console.log('No local saves');
+    }
+  },
 };
 </script>
