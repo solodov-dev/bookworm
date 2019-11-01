@@ -17,7 +17,7 @@
       :key="book.key"
       :book-title="book.title"
       :book-author="book.author"
-      @click.native="toggleMenu"
+      @click.native="toggleMenu($event, book)"
     ></app-book>
     <v-menu
       v-model="showMenu"
@@ -49,6 +49,7 @@ export default {
       menuItems: ['Read', 'Reading', 'To Read'],
       x: 0,
       y: 0,
+      selectedBook: {},
     };
   },
   computed: {
@@ -63,10 +64,18 @@ export default {
     appBook: Book,
   },
   methods: {
-    toggleMenu(e) {
+    toggleMenu(e, book) {
       this.showMenu = !this.showMenu;
       this.x = e.clientX;
       this.y = e.clientY;
+      this.selectedBook = book;
+    },
+    processBook(status) {
+      this.$store.commit({
+        type: 'pushDatabase',
+        book: this.selectedBook,
+        status: status.toLowerCase(),
+      });
     },
   },
 };
@@ -85,5 +94,17 @@ export default {
   left: 0;
   right: 0;
   top: 50%;
+}
+
+@media screen and (max-width: 600px){
+  .home {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 800px){
+  .home {
+    width: 80%;
+  }
 }
 </style>

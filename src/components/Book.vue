@@ -1,6 +1,6 @@
 <template>
   <div class='book-container' :style='randomMargin'>
-    <div class='book' :style='[randomColor, randomWidth]'>
+    <div class='book' :style='randomColor'>
       <div class='book-label'></div>
       <h1 class='book-text book-title' :style='randomFont'>{{ bookTitle }}</h1>
       <h2 class='book-text book-author'>{{ bookAuthor }}</h2>
@@ -33,18 +33,12 @@ export default {
         'background-color': color,
       };
     },
-    randomWidth() {
-      const width = `${Math.floor(
-        Math.random() * (80 - 50 + 1) + 40,
-      ).toString()}%`;
-      return { 'max-width': width };
-    },
     randomMargin() {
       const marginLeft = `${Math.floor(
-        Math.random() * (40 - 10 + 1) + 10,
+        Math.random() * (70 - 30 + 1) + 30,
       ).toString()}px`;
       const marginRight = `${Math.floor(
-        Math.random() * (40 - 10 + 1) + 10,
+        Math.random() * (70 - 30 + 1) + 30,
       ).toString()}px`;
       return { 'margin-left': marginLeft, 'margin-right': marginRight };
     },

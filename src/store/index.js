@@ -29,8 +29,8 @@ export default new Vuex.Store({
     pushList(state, book) {
       state.booksList.push(book);
     },
-    pushDatabase(state, book) {
-      state.database.push(book);
+    pushDatabase(state, payload) {
+      state.database[payload.status].push(payload.book);
     },
     setList(state, filter) {
       state.booksList = state.database[filter];
@@ -64,8 +64,8 @@ export default new Vuex.Store({
       });
     },
     setList({ commit, state }, filter) {
+      commit('clearList');
       if (state.database[filter].length > 0) {
-        commit('clearList');
         commit('setList', filter);
       }
     },

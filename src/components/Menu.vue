@@ -1,13 +1,21 @@
 <template>
   <v-tabs class="menu" centered>
-    <v-tab v-for="(tab, index) in tabs" :key="index" @click="setList(tab)">{{ tab }}</v-tab>
+    <v-tab
+      v-for="(tab, index) in tabs"
+      :key="index"
+      @click="setList(tab.value)"
+      >{{ tab.name }}</v-tab>
   </v-tabs>
 </template>
 <script>
 export default {
   data() {
     return {
-      tabs: ['read', 'to-read', 'reading'],
+      tabs: [
+        { name: 'read', value: 'read' },
+        { name: 'to read', value: 'toRead' },
+        { name: 'reading', value: 'reading' },
+      ],
     };
   },
   methods: {
