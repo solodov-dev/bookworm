@@ -94,4 +94,8 @@ export default {
   font-family: 'Roboto Mono', monospace;
   font-weight: 100;
 }
+
+.book-container {
+  cursor: pointer;
+}
 </style>

@@ -5,15 +5,17 @@
         <v-btn icon color="blue" @click="showSearch=!showSearch">
           <v-icon>mdi-search-web</v-icon>
         </v-btn>
-    <v-text-field v-if="showSearch"
-                  class="search-bar"
-                  v-model="searchTerm"
-                  label="Search"
-                  solo
-                  append-icon="mdi-book-search"
-                  @keyup.enter="searchBooks"
-                  @click:append="searchBooks"
-    ></v-text-field>
+    <v-scale-transition>
+      <v-text-field v-if="showSearch"
+                    class="search-bar"
+                    v-model="searchTerm"
+                    label="Search"
+                    solo
+                    append-icon="mdi-book-search"
+                    @keyup.enter="searchBooks"
+                    @click:append="searchBooks"
+      ></v-text-field>
+    </v-scale-transition>
   </v-app-bar>
 </template>
 

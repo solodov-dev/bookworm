@@ -7,7 +7,11 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     booksList: [],
-    database: [],
+    database: {
+      read: [],
+      reading: [],
+      toRead: [],
+    },
     loading: false,
   },
   getters: {
@@ -29,7 +33,7 @@ export default new Vuex.Store({
       state.database.push(book);
     },
     setList(state, filter) {
-      state.booksList = state.database.filter(el => el.status === filter);
+      state.booksList = state.database[filter];
     },
     toggleLoading(state) {
       state.loading = !state.loading;
@@ -60,7 +64,7 @@ export default new Vuex.Store({
       });
     },
     setList({ commit, state }, filter) {
-      if (state.database) {
+      if (state.database[filter].length > 0) {
         commit('clearList');
         commit('setList', filter);
       }
