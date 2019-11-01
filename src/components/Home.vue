@@ -59,28 +59,36 @@ export default {
       return this.$store.getters.loading;
     },
     menuItems() {
+      // Full menu
       const menu = [
         { text: 'Read', value: 'read' },
         { text: 'Reading', value: 'reading' },
         { text: 'To Read', value: 'toRead' },
         { text: 'Delete', value: 'search' },
       ];
+      // Return selected menu items for current shelf
       return menu.filter(e => e.value !== this.$store.getters.currentList);
     },
   },
   methods: {
-    toggleMenu(e, book) {
+    toggleMenu(e, book) { // Show menu on the selected book at mouse coordinates
       this.showMenu = !this.showMenu;
       this.x = e.clientX;
       this.y = e.clientY;
       this.selectedBook = book;
     },
     processBook(status) {
-      this.$store.commit({
-        type: 'pushDatabase',
-        book: this.selectedBook,
-        status,
-      });
+      // To add the book
+      if (status !== 'search') {
+        this.$store.commit({
+          type: 'pushDatabase',
+          book: this.selectedBook,
+          status,
+        });
+      // To delete the book
+      } else {
+        this.$store.commit('deleteFromDatabase', this.selectedBook);
+      } // TODO to move a book to another shelf
       this.$store.commit('saveDatabase');
     },
   },

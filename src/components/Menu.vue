@@ -19,8 +19,8 @@ export default {
     };
   },
   methods: {
-    setList(filter) {
-      this.$store.dispatch('setList', filter);
+    setList(listName) {
+      this.$store.dispatch('setList', listName);
     },
   },
 };

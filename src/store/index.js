@@ -36,8 +36,8 @@ export default new Vuex.Store({
     pushList(state, book) {
       state.booksList.push(book);
     },
-    setList(state, filter) {
-      state.booksList = state.database[filter];
+    setList(state, listName) {
+      state.booksList = state.database[listName];
     },
     loadDatabase(state) {
       if (localStorage.getItem('database')) {
@@ -53,6 +53,11 @@ export default new Vuex.Store({
     },
     pushDatabase(state, payload) {
       state.database[payload.status].push(payload.book);
+    },
+    deleteFromDatabase(state, book) {
+      state.database[state.currentList].splice(
+        state.database[state.currentList].findIndex(e => e.key === book.key), 1,
+      );
     },
     toggleLoading(state) {
       state.loading = !state.loading;
@@ -81,12 +86,13 @@ export default new Vuex.Store({
           key: book.key,
         });
       });
+      commit('setCurrentList', 'search');
     },
-    setList({ commit, state }, filter) {
+    setList({ commit, state }, listName) {
       commit('clearList');
-      commit('setCurrentList', filter);
-      if (state.database[filter].length > 0) {
-        commit('setList', filter);
+      commit('setCurrentList', listName);
+      if (state.database[listName].length > 0) {
+        commit('setList', listName);
       }
     },
   },
