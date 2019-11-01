@@ -79,7 +79,7 @@ export default {
     },
     processBook(status) {
       // To add the book or to move it to another shelf
-      // FIXME If status !== 'delete'. 'Search' instead of 'delete' for display purposes
+      // FIXME If status !== 'delete'.
       if (status !== 'search') {
         this.$store.dispatch({
           type: 'moveBook',

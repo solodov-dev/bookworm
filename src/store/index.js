@@ -97,10 +97,18 @@ export default new Vuex.Store({
       }
     },
     moveBook({ commit, state }, payload) {
-      if (state.currentList !== 'search') {
+      if (state.currentList === 'search') {
+        // eslint-disable-next-line no-restricted-syntax
+        for (const key in state.database) { // If the book is in the library
+          if (state.database[key].findIndex(e => e.key === payload.book.key) !== -1) {
+            return;
+          }
+        }
+        commit('pushDatabase', { status: payload.status, book: payload.book });
+      } else {
         commit('deleteFromDatabase', payload.book);
+        commit('pushDatabase', { status: payload.status, book: payload.book });
       }
-      commit('pushDatabase', { status: payload.status, book: payload.book });
     },
   },
 });
