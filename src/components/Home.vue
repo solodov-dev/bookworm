@@ -17,7 +17,24 @@
       :key="book.key"
       :book-title="book.title"
       :book-author="book.author"
+      @click.native="toggleMenu"
     ></app-book>
+    <v-menu
+      v-model="showMenu"
+      :position-x="x"
+      :position-y="y"
+      absolute
+    >
+      <v-list>
+        <v-list-item
+          v-for="(item, index) in menuItems"
+          :key="index"
+          @click="processBook(item)"
+        >
+          <v-list-item-title>{{ item }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
   </div>
 </template>
 
@@ -26,6 +43,14 @@ import Book from './Book.vue';
 
 export default {
   name: 'home',
+  data() {
+    return {
+      showMenu: false,
+      menuItems: ['Read', 'Reading', 'To Read'],
+      x: 0,
+      y: 0,
+    };
+  },
   computed: {
     booksList() {
       return this.$store.getters.booksList;
@@ -37,13 +62,20 @@ export default {
   components: {
     appBook: Book,
   },
+  methods: {
+    toggleMenu(e) {
+      this.showMenu = !this.showMenu;
+      this.x = e.clientX;
+      this.y = e.clientY;
+    },
+  },
 };
 </script>
 
 <style scoped>
 .home {
-  margin-top: 80px;
-  width: 100%;
+  margin: 80px auto 20px;
+  width: 60%;
 }
 
 .loader {
