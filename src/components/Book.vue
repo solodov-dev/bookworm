@@ -92,4 +92,14 @@ export default {
 .book-container {
   cursor: pointer;
 }
+
+@media screen and (max-width: 800px) {
+  .book-title {
+    font-size: 20px;
+  }
+
+  .book-author {
+    font-size: 10px;
+  }
+}
 </style>
