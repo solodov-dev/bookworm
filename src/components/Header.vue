@@ -35,11 +35,11 @@ export default {
       this.showSearch = false;
       this.$store.commit('clearList');
       this.$store.commit('setCurrentList', 'search');
-      axios.get(`http://openlibrary.org/search.json?q=${this.searchTerm.replace(' ', '+').toLowerCase()}`)
+      axios.get(`https://openlibrary.org/search.json?q=${this.searchTerm.replace(' ', '+').toLowerCase()}`)
         .then((res) => {
           this.$store.dispatch('commitBookSearch', res.data.docs);
           this.$store.commit('toggleLoading');
-        }).catch(error => console.log(error));
+        });
     },
   },
 };
